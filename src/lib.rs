@@ -13,6 +13,7 @@ pub type MouseMove = Receiver<[f32; 2]>;
 pub type Scroll = Receiver<[f32; 2]>;
 
 /// Error that can be risen while creating a `Device` object.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum DeviceError {
   InitError(InitError),
   WindowCreationFailed,
@@ -21,7 +22,7 @@ pub enum DeviceError {
 }
 
 /// Dimension of the window to create.
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum WindowDim {
   Windowed(u32, u32),
   Fullscreen,
@@ -63,6 +64,7 @@ impl Device {
 }
 
 /// Different window options.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct WindowOpt {
   hide_cursor: bool
 }
