@@ -47,7 +47,6 @@ pub struct Device {
   /// Scroll receiver.
   pub scroll: Scroll,
   /// Window.
-  #[allow(dead_code)]
   window: Window,
   /// Event thread join handle. Unused and keep around until death.
   #[allow(dead_code)]
@@ -61,6 +60,11 @@ impl Device {
 
   pub fn height(&self) -> u32 {
     self.h
+  }
+
+  pub fn draw<F>(&mut self, f: F) where F: Fn() {
+    f();
+    self.window.swap_buffers();
   }
 }
 
