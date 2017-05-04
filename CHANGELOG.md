@@ -1,4 +1,8 @@
-## 0.1.2
+### 0.1.3
+
+- Changed the trait bound from `Fn` to `FnOnce` on `Device::draw`.
+
+### 0.1.2
 
 - Made `glfw::InitError` visible.
 

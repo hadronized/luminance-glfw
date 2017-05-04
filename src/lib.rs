@@ -62,7 +62,7 @@ impl Device {
     self.h
   }
 
-  pub fn draw<F>(&mut self, f: F) where F: Fn() {
+  pub fn draw<F>(&mut self, f: F) where F: FnOnce() {
     f();
     self.window.swap_buffers();
   }
