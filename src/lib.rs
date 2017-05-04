@@ -2,8 +2,8 @@ extern crate gl;
 extern crate glfw;
 extern crate luminance;
 
-use glfw::{Context, CursorMode, InitError, SwapInterval, Window, WindowEvent, WindowMode};
-pub use glfw::{Action, Key, MouseButton};
+use glfw::{Context, CursorMode, SwapInterval, Window, WindowEvent, WindowMode};
+pub use glfw::{Action, InitError, Key, MouseButton};
 use std::os::raw::c_void;
 use std::sync::mpsc::{Receiver, channel};
 use std::thread::{JoinHandle, spawn};
