@@ -1,3 +1,7 @@
+### 0.1.4
+
+- Updated `luminance` dependencies.
+
 ### 0.1.3
 
 - Changed the trait bound from `Fn` to `FnOnce` on `Device::draw`.

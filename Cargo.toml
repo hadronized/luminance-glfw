@@ -1,6 +1,6 @@
 [package]
 name = "luminance-glfw"
-version = "0.1.3"
+version = "0.1.4"
 license = "BSD-3-Clause"
 authors = ["Dimitri Sabadie <dimitri.sabadie@gmail.com>"]
 description = "GLFW support for luminance"
@@ -13,4 +13,4 @@ documentation = "https://docs.rs/luminance-glfw"
 [dependencies]
 gl = "0.6"
 glfw = "0.14"
-luminance = "0.20"
+luminance = "0.21"
