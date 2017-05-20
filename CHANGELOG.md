@@ -1,3 +1,7 @@
+### 0.1.5
+
+- Internal fix for Mac OSX.
+
 ### 0.1.4
 
 - Updated `luminance` dependencies.

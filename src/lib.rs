@@ -102,6 +102,7 @@ pub fn open_window(dim: WindowDim, title: &str, win_opt: WindowOpt) -> Result<De
 
   // OpenGL hints
   glfw.window_hint(glfw::WindowHint::OpenGlProfile(glfw::OpenGlProfileHint::Core));
+  glfw.window_hint(glfw::WindowHint::OpenGlForwardCompat(true));
   glfw.window_hint(glfw::WindowHint::ContextVersionMajor(3));
   glfw.window_hint(glfw::WindowHint::ContextVersionMinor(3));
 
