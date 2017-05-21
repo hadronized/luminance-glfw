@@ -1,17 +1,13 @@
+#![feature(conservative_impl_trait)]
+
 extern crate gl;
 extern crate glfw;
 extern crate luminance;
 
-use glfw::{Context, CursorMode, SwapInterval, Window, WindowEvent, WindowMode};
-pub use glfw::{Action, InitError, Key, MouseButton};
+use glfw::{Context, CursorMode, SwapInterval, Window, WindowMode};
+pub use glfw::{Action, InitError, Key, MouseButton, WindowEvent};
 use std::os::raw::c_void;
-use std::sync::mpsc::{Receiver, channel};
-use std::thread::{JoinHandle, spawn};
-
-pub type Keyboard = Receiver<(Key, Action)>;
-pub type Mouse = Receiver<(MouseButton, Action)>;
-pub type MouseMove = Receiver<[f32; 2]>;
-pub type Scroll = Receiver<[f32; 2]>;
+use std::sync::mpsc::Receiver;
 
 /// Error that can be risen while creating a `Device` object.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
@@ -38,19 +34,10 @@ pub struct Device {
   w: u32,
   /// Height of the window.
   h: u32,
-  /// Keyboard receiver.
-  pub kbd: Keyboard,
-  /// Mouse receiver.
-  pub mouse: Mouse,
-  /// Cursor receiver.
-  pub cursor: MouseMove,
-  /// Scroll receiver.
-  pub scroll: Scroll,
   /// Window.
   window: Window,
-  /// Event thread join handle. Unused and keep around until death.
-  #[allow(dead_code)]
-  event_thread: JoinHandle<()>
+  /// Window events queue.
+  events: Receiver<(f64, WindowEvent)>
 }
 
 impl Device {
@@ -60,6 +47,11 @@ impl Device {
 
   pub fn height(&self) -> u32 {
     self.h
+  }
+
+  pub fn events<'a>(&'a mut self) -> impl Iterator<Item = (f64, WindowEvent)> + 'a {
+    self.window.glfw.poll_events();
+    glfw::flush_messages(&self.events)
   }
 
   pub fn draw<F>(&mut self, f: F) where F: FnOnce() {
@@ -156,44 +148,10 @@ pub fn open_window(dim: WindowDim, title: &str, win_opt: WindowOpt) -> Result<De
   // init OpenGL
   gl::load_with(|s| window.get_proc_address(s) as *const c_void);
 
-  // create channels to stream keyboard and mouse events
-  let (kbd_snd, kbd_rcv) = channel();
-  let (mouse_snd, mouse_rcv) = channel();
-  let (cursor_snd, cursor_rcv) = channel();
-  let (scroll_snd, scroll_rcv) = channel();
-
-  let event_thread = spawn(move || {
-    loop {
-      glfw.wait_events();
-
-      for (_, event) in glfw::flush_messages(&events) {
-        match event {
-          WindowEvent::Key(key, _, action, _) => {
-            let _ = kbd_snd.send((key, action));
-          },
-          WindowEvent::MouseButton(button, action, _) => {
-            let _ = mouse_snd.send((button, action));
-          },
-          WindowEvent::CursorPos(x, y) => {
-            let _ = cursor_snd.send([x as f32, y as f32]);
-          },
-          WindowEvent::Scroll(x, y) => {
-            let _ = scroll_snd.send([x as f32, y as f32]);
-          },
-          _ => {},
-        }
-      }
-    }
-  });
-
   Ok(Device {
     w: w,
     h: h,
-    kbd: kbd_rcv,
-    mouse: mouse_rcv,
-    cursor: cursor_rcv,
-    scroll: scroll_rcv,
     window: window,
-    event_thread: event_thread
+    events: events
   })
 }

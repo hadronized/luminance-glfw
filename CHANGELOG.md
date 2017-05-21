@@ -1,3 +1,8 @@
+## 0.2
+
+- Changed the way events are handled. It doesn’t create an events thread anymore but instead exposes
+  a polling interface. It’ll enhance performance and make mono-thread systems work, like Mac OSX.
+
 ### 0.1.5
 
 - Internal fix for Mac OSX.
