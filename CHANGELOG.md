@@ -1,4 +1,11 @@
-## 0.2
+## 0.3.0
+
+- Removed `open_window` and moved its code into `Device::new`.
+- Enhanced the documentation.
+- Implemented Hi-DPI (tested on a Macbook Pro).
+- Removed `Device::width` and `Device::height` and replaced them with `Device::size`.
+
+## 0.2.0
 
 - Changed the way events are handled. It doesn’t create an events thread anymore but instead exposes
   a polling interface. It’ll enhance performance and make mono-thread systems work, like Mac OSX.
@@ -23,6 +30,6 @@
 
 - `Device::draw` added.
 
-## 0.1
+## 0.1.0
 
 - Initial revision.
