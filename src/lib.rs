@@ -30,10 +30,6 @@ pub enum WindowDim {
 ///
 /// Upon window and context creation, this type is used to add interaction and context handling.
 pub struct Device {
-  /// Width of the window.
-  w: u32,
-  /// Height of the window.
-  h: u32,
   /// Window.
   window: Window,
   /// Window events queue.
@@ -41,12 +37,9 @@ pub struct Device {
 }
 
 impl Device {
-  pub fn width(&self) -> u32 {
-    self.w
-  }
-
-  pub fn height(&self) -> u32 {
-    self.h
+  pub fn size(&self) -> [u32; 2] {
+    let (w, h) = self.window.get_framebuffer_size();
+    [w as u32, h as u32]
   }
 
   pub fn events<'a>(&'a mut self) -> impl Iterator<Item = (f64, WindowEvent)> + 'a {
@@ -99,13 +92,13 @@ pub fn open_window(dim: WindowDim, title: &str, win_opt: WindowOpt) -> Result<De
   glfw.window_hint(glfw::WindowHint::ContextVersionMinor(3));
 
   // open a window in windowed or fullscreen mode
-  let (mut window, events, w, h) = match dim {
+  let (mut window, events) = match dim {
     WindowDim::Windowed(w, h) => {
       let (window, events) = glfw.create_window(w,
                                                 h,
                                                 title,
                                                 WindowMode::Windowed).ok_or(DeviceError::WindowCreationFailed)?;
-      (window, events, w, h)
+      (window, events)
     },
     WindowDim::Fullscreen => {
       glfw.with_primary_monitor(|glfw, monitor| {
@@ -117,7 +110,7 @@ pub fn open_window(dim: WindowDim, title: &str, win_opt: WindowOpt) -> Result<De
                                                   h,
                                                   title,
                                                   WindowMode::FullScreen(monitor)).ok_or(DeviceError::WindowCreationFailed)?;
-        Ok((window, events, w, h))
+        Ok((window, events))
       })?
     },
     WindowDim::FullscreenRestricted(w, h) => {
@@ -128,7 +121,7 @@ pub fn open_window(dim: WindowDim, title: &str, win_opt: WindowOpt) -> Result<De
                                                   h,
                                                   title,
                                                   WindowMode::FullScreen(monitor)).ok_or(DeviceError::WindowCreationFailed)?;
-        Ok((window, events, w, h))
+        Ok((window, events))
       })?
     }
   };
@@ -143,14 +136,13 @@ pub fn open_window(dim: WindowDim, title: &str, win_opt: WindowOpt) -> Result<De
   window.set_cursor_pos_polling(true);
   window.set_mouse_button_polling(true);
   window.set_scroll_polling(true);
+  window.set_framebuffer_size_polling(true);
   glfw.set_swap_interval(SwapInterval::Sync(1));
 
   // init OpenGL
   gl::load_with(|s| window.get_proc_address(s) as *const c_void);
 
   Ok(Device {
-    w: w,
-    h: h,
     window: window,
     events: events
   })
