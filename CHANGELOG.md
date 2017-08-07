@@ -1,3 +1,7 @@
+## 0.3.2
+
+- Poll everything!
+
 ## 0.3.1
 
 - Support for `glfw-0.16`.

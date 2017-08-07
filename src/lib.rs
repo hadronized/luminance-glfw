@@ -105,11 +105,7 @@ impl Device {
       window.set_cursor_mode(CursorMode::Disabled);
     }
 
-    window.set_key_polling(true);
-    window.set_cursor_pos_polling(true);
-    window.set_mouse_button_polling(true);
-    window.set_scroll_polling(true);
-    window.set_framebuffer_size_polling(true);
+    window.set_all_polling(true);
     glfw.set_swap_interval(SwapInterval::Sync(1));
 
     // init OpenGL
