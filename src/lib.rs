@@ -2,7 +2,6 @@
 
 extern crate gl;
 extern crate glfw;
-extern crate luminance;
 
 use glfw::{Context, CursorMode, SwapInterval, Window, WindowMode};
 pub use glfw::{Action, InitError, Key, MouseButton, WindowEvent};
