@@ -1,3 +1,9 @@
+## 0.3.3
+
+> Saturday, 30th of September, 2017
+
+- Remove the `luminance` dependency as it’s not needed anymore.
+
 ## 0.3.2
 
 - Poll everything!
