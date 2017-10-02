@@ -6,6 +6,8 @@ use glfw::{Context, CursorMode, SwapInterval, Window, WindowMode};
 pub use glfw::{Action, InitError, Key, MouseButton, WindowEvent};
 pub use luminance_windowing::{Device, WindowDim, WindowOpt};
 use std::os::raw::c_void;
+use std::error::Error;
+use std::fmt;
 use std::sync::mpsc::Receiver;
 
 /// Error that can be risen while creating a `Device` object.
@@ -15,6 +17,30 @@ pub enum GLFWDeviceError {
   WindowCreationFailed,
   NoPrimaryMonitor,
   NoVideoMode
+}
+
+impl fmt::Display for GLFWDeviceError {
+  fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+    f.write_str(self.description())
+  }
+}
+
+impl Error for GLFWDeviceError {
+  fn description(&self) -> &str {
+    match *self {
+      GLFWDeviceError::InitError(_) => "initialization error",
+      GLFWDeviceError::WindowCreationFailed => "failed to create window",
+      GLFWDeviceError::NoPrimaryMonitor => "no primary monitor",
+      GLFWDeviceError::NoVideoMode => "no video mode"
+    }
+  }
+
+  fn cause(&self) -> Option<&Error> {
+    match *self {
+      GLFWDeviceError::InitError(ref e) => Some(e),
+      _ => None
+    }
+  }
 }
 
 /// Device object.

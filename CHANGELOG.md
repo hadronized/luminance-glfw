@@ -1,3 +1,9 @@
+### 0.4.1
+
+> Monday, 2nd of October, 2017
+
+- Implement `Display` and `Error` for `GLFWDeviceError`.
+
 ## 0.4.0
 
 > Sunday, 1st of October, 2017
