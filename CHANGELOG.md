@@ -1,3 +1,10 @@
+### 0.4.2
+
+> Sunday, 28th of January, 2018
+
+- Support for `gl-0.9`.
+- Support for `glfw-0.20`.
+
 ### 0.4.1
 
 > Monday, 2nd of October, 2017
@@ -18,7 +25,7 @@
 
 ### 0.3.2
 
-- Poll everything!
+- All events are now polled, thus all kinds of events are now inspectable.
 
 ### 0.3.1
 
