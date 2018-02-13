@@ -1,3 +1,9 @@
+### 0.4.3
+
+> Tuesday, 13th of February, 2018
+
+- Support for `gl-0.10`.
+
 ### 0.4.2
 
 > Sunday, 28th of January, 2018
