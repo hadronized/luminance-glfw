@@ -13,4 +13,5 @@ documentation = "https://docs.rs/luminance-glfw"
 [dependencies]
 gl = "0.10"
 glfw = "0.20"
-luminance-windowing = "0.1"
+luminance = { path = "../luminance" }
+luminance-windowing = { path = "../luminance-windowing" }
