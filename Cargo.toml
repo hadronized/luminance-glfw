@@ -5,10 +5,16 @@ license = "BSD-3-Clause"
 authors = ["Dimitri Sabadie <dimitri.sabadie@gmail.com>"]
 description = "GLFW support for luminance"
 keywords = ["stateless", "type-safe", "graphics", "luminance", "glfw"]
-
+categories = ["rendering::graphics-api"]
 homepage = "https://github.com/phaazon/luminance-glfw"
 repository = "https://github.com/phaazon/luminance-glfw"
 documentation = "https://docs.rs/luminance-glfw"
+
+[badges]
+travis-ci = { repository = "phaazon/luminance-glfw", branch = "master" }
+is-it-maintained-issue-resolution = { repository = "phaazon/luminance-glfw" }
+is-it-maintained-open-issues = { repository = "phaazon/luminance-glfw" }
+maintenance = { status = "actively-developed" }
 
 [dependencies]
 gl = "0.10"
