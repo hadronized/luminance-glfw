@@ -1,3 +1,7 @@
+//! Surface implementation.
+//!
+//! This module exports the `GlfwSurface` as an implementation of `Surface`.
+
 use gl;
 use glfw::{self, Context, CursorMode, SwapInterval, Window, WindowMode};
 use luminance::context::GraphicsContext;
@@ -13,7 +17,8 @@ pub use error::{InitError, GlfwSurfaceError, StateQueryError};
 
 /// GLFW surface.
 ///
-/// This type implements `GraphicsContext` so that you can use it to perform render.
+/// This type implements `GraphicsContext` so that you can use it to perform render with
+/// **luminance**.
 pub struct GlfwSurface {
   window: Window,
   events_rx: Receiver<(f64, WindowEvent)>,
