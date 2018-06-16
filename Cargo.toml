@@ -18,6 +18,6 @@ maintenance = { status = "actively-developed" }
 
 [dependencies]
 gl = "0.10"
-glfw = "0.20"
+glfw = "0.23"
 luminance = { path = "../luminance" }
 luminance-windowing = { path = "../luminance-windowing" }
